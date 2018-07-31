@@ -18,7 +18,7 @@ spec:
       serviceAccountName: cert-manager
       containers:
         - name: cert-manager
-          image: quay.io/jetstack/cert-manager-controller:v0.3.1
+          image: quay.io/giantswarm/cert-manager-controller:v0.4.0
           imagePullPolicy: IfNotPresent
           args:
           - --cluster-resource-namespace=$(POD_NAMESPACE)
@@ -33,7 +33,7 @@ spec:
           resources:
             requests:
               cpu: 10m
-              memory: 32Mi
+              memory: 35Mi
             limits:
               cpu: 10m
-              memory: 32Mi
+              memory: 35Mi
