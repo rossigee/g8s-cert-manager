@@ -32,8 +32,8 @@ spec:
                 fieldPath: metadata.namespace
           resources:
             requests:
-              cpu: 10m
-              memory: 35Mi
+              cpu: 50m
+              memory: 100Mi
             limits:
-              cpu: 10m
-              memory: 35Mi
+              cpu: 50m
+              memory: 100Mi
