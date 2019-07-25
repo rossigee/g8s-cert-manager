@@ -9,7 +9,7 @@ spec:
   serviceAccountName: cert-manager
   restartPolicy: OnFailure
   containers:
-  - image: quay.io/giantswarm/docker-kubectl:e777d4eaf369d4dabc393c5da42121c2a725ea6a
+  - image: quay.io/giantswarm/docker-kubectl:c390c418b9c8a5fa83febb16987d24889a460b25
     args:
       - apply
       - -f

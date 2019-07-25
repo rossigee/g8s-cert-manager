@@ -1,21 +1,24 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: cert-manager
-  namespace: kube-system
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
   labels:
-    app: cert-manager
+    app: {{ .Values.name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cert-manager
+      app: {{ .Values.name }}
   template:
     metadata:
       labels:
-        app: cert-manager
+        app: {{ .Values.name }}
     spec:
-      serviceAccountName: cert-manager
+      serviceAccountName: {{ .Values.name }}
+      securityContext:
+        runAsUser: {{ .Values.userID }}
+        runAsGroup: {{ .Values.groupID }}
       containers:
         - name: cert-manager
           image: quay.io/giantswarm/cert-manager-controller:v0.4.0
