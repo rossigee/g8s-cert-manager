@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  architect: giantswarm/architect@0.2.0
+  architect: giantswarm/architect@0.4.5
 
 jobs:
   build:
@@ -23,6 +23,7 @@ jobs:
 workflows:
   package-and-push-chart-on-tag:
     jobs:
+      - build
       - architect/push-to-app-catalog:
           name: "push-g8s-cert-manager-to-app-catalog"
           app_catalog: "giantswarm-operations-platform-catalog"
