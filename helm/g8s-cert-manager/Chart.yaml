@@ -1,4 +1,4 @@
 name: g8s-cert-manager
-version: [[ .Version ]]
+version: 1.0.0
 appVersion: 0.9.0
 description: A Helm chart for cert-manager
