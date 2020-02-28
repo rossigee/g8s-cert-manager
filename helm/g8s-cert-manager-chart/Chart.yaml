@@ -1,4 +1,4 @@
 name: g8s-cert-manager-chart
-version: 1.0.0-602684b7cd6d1d9eb32efa96a1499b2c0b5637ec
+version: 1.0.0-[[ .SHA ]]
 appVersion: 0.2.5
 description: A Helm chart for cert-manager
