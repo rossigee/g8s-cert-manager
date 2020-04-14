@@ -1,5 +1,4 @@
 name: cert-manager
-namespace: kube-system
 
 userID: 1000
 groupID: 1000
@@ -7,4 +6,51 @@ groupID: 1000
 image:
   registry: quay.io
   name: giantswarm/cert-manager-controller
-  tag: v0.9.0
+  tag: v0.14.1
+  pullPolicy: Always
+
+kubectl:
+  image:
+    registry: quay.io
+    name: giantswarm/docker-kubectl
+    tag: 1.16.4
+    pullPolicy: IfNotPresent
+
+global:
+  priorityClassName: giantswarm-critical
+  rbac:
+    create: true
+  podSecurityPolicy:
+    enabled: true
+  leaderElection:
+    namespace: "kube-system"
+
+replicaCount: 1
+
+serviceAccount:
+  create: true
+
+securityContext:
+  enabled: true
+  fsGroup: 1000
+  fsUser: 1000
+
+ingressShim:
+  defaultIssuerName: letsencrypt-giantswarm
+  defaultIssuerKind: ClusterIssuer
+
+prometheus:
+  enabled: true
+  servicemonitor:
+    enabled: false
+    prometheusInstance: default
+    targetPort: 9402
+    path: /metrics
+    interval: 60s
+    scrapeTimeout: 30s
+    labels: {}
+
+Installation:
+  V1:
+    Registry:
+      Domain: quay.io

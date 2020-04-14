@@ -1,11 +1,17 @@
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  namespace: {{ .Values.namespace }}
   name: {{ .Values.name }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
     app: {{ .Values.name }}
+    app: {{ template "cert-manager.name" . }}
+    app.kubernetes.io/name: {{ template "cert-manager.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: "controller"
     giantswarm.io/service-type: "managed"
+    helm.sh/chart: {{ template "cert-manager.chart" . }}
 spec:
   podSelector:
     matchLabels:

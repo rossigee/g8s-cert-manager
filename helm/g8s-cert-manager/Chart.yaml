@@ -1,4 +1,7 @@
+apiVersion: v1
 name: g8s-cert-manager
-version: 1.0.0
-appVersion: 0.9.0
-description: A Helm chart for cert-manager
+version: [[ .Version ]]
+appVersion: 0.14.1
+description: A Helm chart for cert-manager in control-plane
+home: https://github.com/jetctack/cert-manager
+icon: https://raw.githubusercontent.com/jetstack/cert-manager/master/logo/logo.png
