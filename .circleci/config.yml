@@ -3,31 +3,15 @@ version: 2.1
 orbs:
   architect: giantswarm/architect@0.8.7
 
-jobs:
-  build:
-    machine: true
-    steps:
-    - checkout
-
-    - run: |
-        wget -q $(curl -sS -H "Authorization: token $RELEASE_TOKEN" https://api.github.com/repos/giantswarm/architect/releases/latest | grep browser_download_url | head -n 1 | cut -d '"' -f 4)
-        chmod +x ./architect
-        ./architect version
-    - run: ./architect build
-
 workflows:
   version: 2
-  build_e2e:
+  build:
     jobs:
-      - build
-
       - architect/push-to-app-catalog:
           name: push-g8s-cert-manager-to-control-plane-app-catalog
           app_catalog: "control-plane-catalog"
           app_catalog_test: "control-plane-test-catalog"
           chart: "g8s-cert-manager"
-          requires:
-            - build
           filters:
             # Trigger the job also on git tag.
             tags:
