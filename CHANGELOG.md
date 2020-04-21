@@ -16,8 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Delete legacy chart, used by draughtsman.
 
-[0.2.0]: https://github.com/giantswarm/dex-app/tag/v0.2.0
-
 ## [1.0.0] - 2019-08-02
 
 ### Added
