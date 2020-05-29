@@ -87,7 +87,6 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: {{ include "cert-manager.fullname" . }}:namespace-labeler
-  namespace: {{ .Release.Namespace }}
 subjects:
   - apiGroup: ""
     kind: ServiceAccount
