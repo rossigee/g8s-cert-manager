@@ -33,7 +33,6 @@ serviceAccount:
 securityContext:
   enabled: true
   fsGroup: 1000
-  fsUser: 1000
 
 ingressShim:
   defaultIssuerName: letsencrypt-giantswarm

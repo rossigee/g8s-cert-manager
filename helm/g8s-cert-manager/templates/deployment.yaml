@@ -38,7 +38,6 @@ spec:
       priorityClassName: {{ .Values.global.priorityClassName | quote }}
       securityContext:
         fsGroup: {{ default 1001 .Values.securityContext.fsGroup }}
-        fsUser: {{ default 1001 .Values.securityContext.fsUser }}
       initContainers:
       - name: disable-webhook-validation
         image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.kubectl.image.name }}:{{ .Values.kubectl.image.tag }}"
