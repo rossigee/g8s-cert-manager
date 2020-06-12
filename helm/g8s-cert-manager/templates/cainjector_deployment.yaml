@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "cert-manager.fullname" . }}-injector
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: {{ template "cert-manager.name" . }}
+    app.kubernetes.io/name: {{ template "cert-manager.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: "injector"
+    giantswarm.io/service-type: "managed"
+    helm.sh/chart: {{ template "cert-manager.chart" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ template "cert-manager.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: "injector"
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ template "cert-manager.name" . }}-injector
+        app.kubernetes.io/name: {{ template "cert-manager.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: "injector"
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        helm.sh/chart: {{ template "cert-manager.chart" . }}
+      annotations:
+        prometheus.io/path: "/metrics"
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9402'
+    spec:
+      serviceAccountName: {{ template "cert-manager.serviceAccountName" . }}-injector
+      priorityClassName: {{ .Values.global.priorityClassName | quote }}
+      securityContext:
+        fsGroup: {{ default 1001 .Values.securityContext.fsGroup }}
+      containers:
+        - name: cert-manager-injector
+          {{ if (.Values.Installation) }}
+          image: "{{ .Values.Installation.V1.Registry.Domain }}/{{ .Values.cainjectorImage.name }}:{{ .Values.cainjectorImage.tag }}"
+          {{ else }}
+          image: "{{ .Values.cainjectorImage.registry }}/{{ .Values.cainjectorImage.name }}:{{ .Values.cainjectorImage.tag }}"
+          {{ end }}
+          imagePullPolicy: IfNotPresent
+          args:
+          - --leader-election-namespace=$(POD_NAMESPACE)
+          ports:
+          - containerPort: 9402
+          env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi

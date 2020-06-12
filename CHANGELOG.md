@@ -7,15 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add CA Injector for webhooks
+
 ## [1.1.2] - 2020-05-29
 
-### Changed 
+### Changed
 
 - Fix Deployment template format.
 
 ## [1.1.1] - 2020-05-29
 
-### Changed 
+### Changed
 
 - Fix RBAC template format.
 

@@ -9,6 +9,12 @@ image:
   tag: v0.14.1
   pullPolicy: Always
 
+cainjectorImage:
+  registry: quay.io
+  name: giantswarm/cert-manager-cainjector
+  tag: v0.14.1
+  pullPolicy: Always
+
 kubectl:
   image:
     registry: quay.io
